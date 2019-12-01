@@ -3,18 +3,14 @@ include("include/session.php");
 //Jei prisijunges Administratorius ar Valdytojas vykdomas operacija3 kodas
 if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
     ?>    
-    <html>  
-        <head>  
-            <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8"/> 
-            <title>Straipnsių sąrašas</title>
-            <link href="include/styles.css" rel="stylesheet" type="text/css" />
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<html>  
+    <head>  
+        <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8"/> 
+        <title>Straipnsių sąrašas</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="include/styles.css" rel="stylesheet" type="text/css" />
 
-            <style>
-
-            </style>
-
-        </head>
+    </head>
         <body>       
 
             <?php
@@ -31,7 +27,7 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
                     <th colspan="2">Atividade</th>
                     </tr>
                 </thead>
-                    <tbody>
+                <tbody>
                         <tr>
                         <td>1</td>
                         <td>Atualizar página da equipe</td>
@@ -56,11 +52,11 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
                             <i class="material-icons button delete">delete</i>
                         </td>
                         </tr>
-                    </tbody>
-                </table>
-                         
+                </tbody>
+            </table>
+                            
         </body>
-    </html>
+</html>
     <?php
     //Jei vartotojas neprisijungęs arba prisijunges, bet ne Administratorius 
     //ar ne Valdytojas - užkraunamas pradinis puslapis   

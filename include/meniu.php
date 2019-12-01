@@ -9,7 +9,6 @@ if (isset($session) && $session->logged_in) {
     }
 }
 ?> 
-
  
 <nav class="navbar navbar-light navbar-expand-lg">
   <a class="navbar-brand" href="index.php">

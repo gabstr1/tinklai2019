@@ -289,6 +289,24 @@ class MySQLDB {
         return mysqli_query($this->connection, $query);
     }
 
+    function getStraipsniai() {
+        $q = "SELECT straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, vartotojas.vardas FROM `straipsnis` 
+        INNER JOIN vartotojas
+        ON vartotojas.id = straipsnis.autoriaus_id";
+        $result = mysqli_query($this->connection, $q);
+        /* Error occurred, return given name by default */
+        $num_rows = mysqli_num_rows($result);
+        if (!$result || ($num_rows < 1)) {
+            return NULL;
+        }
+        $data = array();
+        /* Return result array */
+        for ($i = 0; $i < $num_rows; $i++) {
+            $data[] = mysqli_fetch_array($result);
+        }
+        return $data;
+    }
+
 }
 
 /* Create database connection */

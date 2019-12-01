@@ -4,7 +4,7 @@
 ?>  
 
 <form action="process.php" method="POST"> 
-    <div class="container">
+    <div class="container my-5 py-5">
 	<div class="d-flex justify-content-center h-50">
 		<div class="card">
 			<div class="card-header">

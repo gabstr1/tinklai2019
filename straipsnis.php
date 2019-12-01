@@ -23,27 +23,27 @@ include("include/session.php");
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
         </script>
         <link href="include/styles.css" rel="stylesheet" type="text/css" />
-
     </head>
 
     <body>
 
         <?php
-                include("include/meniu.php");
-            ?>
+            include("include/meniu.php");
+            global $database;
+            // $results = $database->getStraipsniai(); 
+        ?>
 
         <div class="container container-bg">
 
-            <div class="row justify-content-center py-4 ">
-                <h1>Straipsnis Pirmas <?php $queries = array();; parse_str($_SERVER['QUERY_STRING'],$queries); echo $queries['id']  ?></h1>
+            <div class="row justify-content-center py-4 ">          
             </div>
 
-            <div class="col col-space">
-                <h6>Autorius: Autorius Pirmas</h6>
+            <div>
+                <h6 class="text-center pb-5 ">Autorius: Autorius Pirmas</h6>
             </div>
 
-            <div class="col col-text">
-                <p class="p-article">
+            <div class="d-flex justify-content-center pb-4 mx-5">
+                <p class="text-justify">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum arcu ante, posuere eu turpis et,
                     aliquam malesuada nibh. Donec tincidunt tortor sed sodales viverra. Nam venenatis eros sed ligula
                     sollicitudin laoreet. Quisque consequat nulla eu pretium viverra. Sed tristique in ex sed pretium. Sed
@@ -58,7 +58,7 @@ include("include/session.php");
                     suscipit, urna pellentesque aliquet gravida, ex neque placerat nulla, vel pharetra lacus augue vitae
                     dolor. Praesent faucibus condimentum augue, eget pellentesque diam consectetur dignissim. Integer in
                     auctor nulla. Sed id nulla ultrices, tempor felis in, rutrum mi. Pellentesque luctus nibh vitae
-                    scelerisque facilisis.
+                    scelerisque facilisis.`
 
                     Quisque non pellentesque lorem. Etiam porttitor libero nisl, sed eleifend ipsum efficitur id. Aliquam
                     erat volutpat. Proin tempor neque eget molestie imperdiet. Cras ut nibh vel mauris facilisis blandit ut
@@ -81,55 +81,36 @@ include("include/session.php");
                 </p>
             </div>
 
-            <div class="col col-space">
-            </div>
-
-            <div class="col col-write">
+            <div class="d-flex justify-content-start pb-2 mx-5">
                 <h4>Parašykite komentarą:</h4>
             </div>
 
-            <div class="col col-space-20">
-            </div>
-
-            <div class="col col-comment-box">
+            <div class="d-flex justify-content-start mx-5">
                 <textarea class="form-control" id="exampleFormControlTextarea1"></textarea>
             </div>
 
-            <div class="col col-space-20">
-            </div>
-
-            <div class="col col-answer">
+            <div class="d-flex justify-content-end pb-3 pt-2 mx-5">
                 <a class="btn btn-submit" href="#" role="button">Pateikti</a>
             </div>
 
-            <div class="col col-space">
-            </div>
-
-            <div class="col col-write">
+            <div class="d-flex justify-content-start pb-2 mx-5">
                 <h6>Autorius Antras</h6>
             </div>
 
-            <div class="col col-space-20">
-            </div>
-
-            <div class="col col-comment-box">
-                <p class="p-article">Cras ut nibh vel mauris facilisis blandit ut faucibus ante. Suspendisse efficitur
+            <div class="d-flex justify-content-start mx-5">
+                <p class="text-justify">Cras ut nibh vel mauris facilisis blandit ut faucibus ante. Suspendisse efficitur
                     gravida pulvinar. Quisque quis tempor felis. Fusce ornare fringilla nisi, non fringilla turpis mollis
                     vitae. Cras gravida ac leo eget tincidunt. Proin accumsan vel magna vel cursus. Phasellus euismod
                     pharetra diam quis laoreet.</p>
             </div>
 
-            <div class="col col-answer">
+            <div class="d-flex justify-content-end pt-1 pb-3 mx-5">
                 <a class="btn btn-answer" href="#" role="button">Atsakyti</a>
             </div>
 
-            <div class="col col-space">
-            </div>
 
         </div>
 
     </body>
 
 </html>
-
-

@@ -209,21 +209,33 @@ div.jumbotron {
 }
 
 .btn-submit {
-    background: rgba(162, 159, 21, 0.9);
+    background: rgb(76, 6, 29);
     border-radius: 50px;
+    color: white;
 }
 
 .btn-submit:hover {
-    background-color: #4C061D;
+    background-color: rgba(162, 159, 21);
     color: white;
 }
 
 .btn-answer {
-    background: rgba(162, 159, 21, 0.9);
+    background: rgb(59, 57, 35);
     border-radius: 50px;
+    color: white;
 }
 
 .btn-answer:hover {
-    background-color: #3B3923;
+    background-color: rgba(162, 159, 21, 0.9);
+    color: white;
+}
+
+.btn-guest {
+    background: rgb(76, 6, 29);
+    color: white;
+}
+
+.btn-guest:hover {
+    background-color: rgba(162, 159, 21, 0.9);
     color: white;
 }
