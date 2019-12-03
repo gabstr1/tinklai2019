@@ -27,7 +27,7 @@ if (isset($session) && $session->logged_in) {
       </li>
       <li class="nav-item active">
       <?php  if ($session->logged_in) { ?>
-        <a class="nav-link" href="#">Mano straipsniai</a>
+        <a class="nav-link" href="my_articles.php">Mano straipsniai</a>
         <?php } ?>
       </li>
       <li class="nav-item active">
@@ -42,15 +42,15 @@ if (isset($session) && $session->logged_in) {
       </li>
       <li class="nav-item active">
       <?php  if ($session->logged_in && ($session->isAdmin() || $session->isManager())) { ?>
-        <a class="nav-link" href="#">Straipsnių užklausos</a>
+        <a class="nav-link" href="requests.php">Straipsnių užklausos</a>
         <?php } ?>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">  
       <?php  if ($session->logged_in) { ?> 
-      <a href="logout.php" class="btn btn-dark my-2 my-sm-0"> Atsijungti </a>
+      <a href="logout.php" class="btn btn-dark my-2 my-sm-0 logout_btn"> Atsijungti </a>
       <?php } else {?>
-        <a href="index.php" class="btn btn-dark my-2 my-sm-0">Prisijungti</a>
+        <a href="index.php" class="btn btn-dark my-2 my-sm-0 logout_btn">Prisijungti</a>
       <?php } ?>
       </form>
     </form>

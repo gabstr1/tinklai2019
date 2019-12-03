@@ -1,11 +1,8 @@
 <?php
-
 include("database.php");
 include("mailer.php");
 include("form.php");
-
 class Session {
-
     var $username;     //Username given on sign-up
     var $userid;       //Random value generated on current login
     var $userlevel;    //The level to which the user pertains
@@ -14,19 +11,16 @@ class Session {
     var $userinfo = array();  //The array holding all user info
     var $url;          //The page url current being viewed
     var $referrer;     //Last recorded site page viewed
-
     /**
      * Note: referrer should really only be considered the actual
      * page referrer in process.php, any other time it may be
      * inaccurate.
      */
     /* Class constructor */
-
     function Session() {
         $this->time = time();
         $this->startSession();
     }
-
     /**
      * startSession - Performs all the actions necessary to 
      * initialize this session object. Tries to determine if the
@@ -37,10 +31,8 @@ class Session {
     function startSession() {
         global $database;  //The database connection
         session_start();   //Tell PHP to start the session
-
         /* Determine if user is logged in */
         $this->logged_in = $this->checkLogin();
-
         /**
          * Set guest value to users not logged in, and update
          * active guests table accordingly.
@@ -53,22 +45,18 @@ class Session {
         /* Update users last active timestamp */ else {
             $database->addActiveUser($this->username, $this->time);
         }
-
         /* Remove inactive visitors from database */
         $database->removeInactiveUsers();
         $database->removeInactiveGuests();
-
         /* Set referrer page */
         if (isset($_SESSION['url'])) {
             $this->referrer = $_SESSION['url'];
         } else {
             $this->referrer = "/";
         }
-
         /* Set current url */
         $this->url = $_SESSION['url'] = $_SERVER['PHP_SELF'];
     }
-
     /**
      * checkLogin - Checks if the user has already previously
      * logged in, and a session with the user has already been
@@ -83,7 +71,6 @@ class Session {
             $this->username = $_SESSION['username'] = $_COOKIE['cookname'];
             $this->userid = $_SESSION['userid'] = $_COOKIE['cookid'];
         }
-
         /* Username and userid have been set and not guest */
         if (isset($_SESSION['username']) && isset($_SESSION['userid']) &&
                 $_SESSION['username'] != GUEST_NAME) {
@@ -94,7 +81,6 @@ class Session {
                 unset($_SESSION['userid']);
                 return false;
             }
-
             /* User is logged in, set class variables */
             $this->userinfo = $database->getUserInfo($_SESSION['username']);
             $this->username = $this->userinfo['username'];
@@ -102,12 +88,10 @@ class Session {
             $this->userlevel = $this->userinfo['userlevel'];
             return true;
         }
-
         /* User not logged in */ else {
             return false;
         }
     }
-
     /**
      * login - The user has submitted his username and password
      * through the login form, this function checks the authenticity
@@ -116,7 +100,6 @@ class Session {
      */
     function login($subuser, $subpass, $subremember) {
         global $database, $form;  //The database and form object
-
         /* Username error checking */
         $field = "user";  //Use field name for username
         if (!$subuser || strlen($subuser = trim($subuser)) == 0) {
@@ -128,22 +111,18 @@ class Session {
                     <br>&nbsp;&nbsp;tik iš raidžių ir skaičių");
             }
         }
-
         /* Password error checking */
         $field = "pass";  //Use field name for password
         if (!$subpass) {
             $form->setError($field, "* Neįvestas slaptažodis");
         }
-
         /* Return if form errors exist */
         if ($form->num_errors > 0) {
             return false;
         }
-
         /* Checks that username is in database and password is correct */
         $subuser = stripslashes($subuser);
         $result = $database->confirmUserPass($subuser, md5($subpass));
-
         /* Check error codes */
         if ($result == 1) {
             $field = "user";
@@ -152,23 +131,19 @@ class Session {
             $field = "pass";
             $form->setError($field, "* Neteisingas slaptažodis");
         }
-
         /* Return if form errors exist */
         if ($form->num_errors > 0) {
             return false;
         }
-
         /* Username and password correct, register session variables */
         $this->userinfo = $database->getUserInfo($subuser);
         $this->username = $_SESSION['username'] = $this->userinfo['username'];
-        $this->userid = $_SESSION['userid'] = $this->generateRandID();
+        $this->userid = $_SESSION['userid'] = $this->userinfo['userid'];
         $this->userlevel = $this->userinfo['userlevel'];
-
         /* Insert userid into database and update active users table */
         $database->updateUserField($this->username, "userid", $this->userid);
         $database->addActiveUser($this->username, $this->time);
         $database->removeActiveGuest($_SERVER['REMOTE_ADDR']);
-
         /**
          * This is the cool part: the user has requested that we remember that
          * he's logged in, so we set two cookies. One to hold his username,
@@ -180,11 +155,9 @@ class Session {
             setcookie("cookname", $this->username, time() + COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", $this->userid, time() + COOKIE_EXPIRE, COOKIE_PATH);
         }
-
         /* Login completed successfully */
         return true;
     }
-
     /**
      * logout - Gets called when the user wants to be logged out of the
      * website. It deletes any cookies that were stored on the users
@@ -202,26 +175,21 @@ class Session {
             setcookie("cookname", "", time() - COOKIE_EXPIRE, COOKIE_PATH);
             setcookie("cookid", "", time() - COOKIE_EXPIRE, COOKIE_PATH);
         }
-
         /* Unset PHP session variables */
         unset($_SESSION['username']);
         unset($_SESSION['userid']);
-
         /* Reflect fact that user has logged out */
         $this->logged_in = false;
-
         /**
          * Remove from active users table and add to
          * active guests tables.
          */
         $database->removeActiveUser($this->username);
         $database->addActiveGuest($_SERVER['REMOTE_ADDR'], $this->time);
-
         /* Set user level to guest */
         $this->username = GUEST_NAME;
         $this->userlevel = GUEST_LEVEL;
     }
-
     /**
      * register - Gets called when the user has just submitted the
      * registration form. Determines if there were any errors with
@@ -231,7 +199,6 @@ class Session {
      */
     function register($subuser, $subpass, $subemail) {
         global $database, $form, $mailer;  //The database, form and mailer object
-
         /* Username error checking */
         $field = "user";  //Use field name for username
         if (!$subuser || strlen($subuser = trim($subuser)) == 0) {
@@ -258,7 +225,6 @@ class Session {
                 $form->setError($field, "* Vartotojas užblokuotas");
             }
         }
-
         /* Password error checking */
         $field = "pass";  //Use field name for password
         if (!$subpass) {
@@ -280,7 +246,6 @@ class Session {
              * kind of stupid to report "password too short".
              */
         }
-
         /* Email error checking */
         $field = "email";  //Use field name for email
         if (!$subemail || strlen($subemail = trim($subemail)) == 0) {
@@ -295,7 +260,6 @@ class Session {
             }
             $subemail = stripslashes($subemail);
         }
-
         /* Errors exist, have user correct them */
         if ($form->num_errors > 0) {
             return 1;  //Errors with form
@@ -311,7 +275,6 @@ class Session {
             }
         }
     }
-
     /**
      * editAccount - Attempts to edit the user's account information
      * including the password, which it first makes sure is correct
@@ -340,7 +303,6 @@ class Session {
                     $form->setError($field, "* Neteisingas slaptažodis");
                 }
             }
-
             /* New Password error checking */
             $field = "newpass";  //Use field name for new password
             /* Spruce up password and check length */
@@ -358,7 +320,6 @@ class Session {
             $field = "newpass";  //Use field name for new password
             $form->setError($field, "* Neįvestas naujas slaptažodis");
         }
-
         /* Email error checking */
         $field = "email";  //Use field name for email
         if ($subemail && strlen($subemail = trim($subemail)) > 0) {
@@ -371,26 +332,21 @@ class Session {
             }
             $subemail = stripslashes($subemail);
         }
-
         /* Errors exist, have user correct them */
         if ($form->num_errors > 0) {
             return false;  //Errors with form
         }
-
         /* Update password since there were no errors */
         if ($subcurpass && $subnewpass) {
             $database->updateUserField($this->username, "password", md5($subnewpass));
         }
-
         /* Change Email */
         if ($subemail) {
             $database->updateUserField($this->username, "email", $subemail);
         }
-
         /* Success! */
         return true;
     }
-
     /**
      * isAdmin - Returns true if currently logged in user is
      * an administrator, false otherwise.
@@ -399,11 +355,9 @@ class Session {
         return ($this->userlevel == ADMIN_LEVEL ||
                 $this->username == ADMIN_NAME);
     }
-
     function isManager() {
         return ($this->userlevel == MANAGER_LEVEL);
     }
-
     /**
      * generateRandID - Generates a string made up of randomized
      * letters (lower and upper case) and digits and returns
@@ -412,7 +366,6 @@ class Session {
     function generateRandID() {
         return md5($this->generateRandStr(16));
     }
-
     /**
      * generateRandStr - Generates a string made up of randomized
      * letters (lower and upper case) and digits, the length
@@ -432,16 +385,13 @@ class Session {
         }
         return $randstr;
     }
-
 }
-
 /**
  * Initialize session object - This must be initialized before
  * the form object because the form uses session variables,
  * which cannot be accessed unless the session has started.
  */
 $session = new Session;
-
 /* Initialize form object */
 $form = new Form;
 ?>

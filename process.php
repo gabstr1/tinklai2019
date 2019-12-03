@@ -21,6 +21,9 @@ class Process {
         /* User submitted edit account form */ else if (isset($_POST['subedit'])) {
             $this->procEditAccount();
         }
+        /* User submitted article form */ else if (isset($_POST['inarticle'])) {
+            $this->procInsertArticle();
+        }
         /**
          * The only other reason user should be directed here
          * is if he wants to logout, which means user is
@@ -174,7 +177,25 @@ class Process {
         }
     }
 
-}
+    function procInsertArticle()
+    {        
+        global $session, $database, $form;
+        /* Errors exist, have user correct them */
+        if ($form->num_errors > 0 && false) {
+            $_SESSION['value_array'] = $_POST;
+            $_SESSION['error_array'] = $form->getErrorArray();
+            header("Location: " . $session->referrer);
+        }
+        else {         
+            $name = $_POST['pavadinimas'];
+            $text = $_POST['tekstas'];
+            $userid= $_SESSION['userid'];
+            }
+            $q = "INSERT INTO straipsnis(id, pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('22','$name', '$userid', '$text' '1', '0')";
+            $database->query($q);
+            header("Location: " . $session->referrer);
+        }
+    }
 
 /* Initialize process */
 $process = new Process;

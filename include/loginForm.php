@@ -1,4 +1,3 @@
-
 <?php
     if (isset($form) && isset($session) && !$session->logged_in) {
 ?>  
@@ -38,7 +37,7 @@
 					</div>
 					<div class="form-group">
                         <input type="submit" value="Prisijungti" class="btn float-right login_btn">
-                        </p>
+                        </p> 
                         <input type="hidden" name="sublogin" value="1"/>
                         <p>
 					</div>

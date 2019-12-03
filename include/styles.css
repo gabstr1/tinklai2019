@@ -79,10 +79,6 @@ a {
     opacity: 1
 }
 
-.container {
-    align-content: center;
-}
-
 .card {
     height: 400px;
     margin-top: auto;
@@ -141,7 +137,6 @@ input:focus {
 
 .login_btn {
     background-color: rgba(162, 159, 21);
-    width: 100px;
 }
 
 .login_btn:hover {
@@ -151,10 +146,6 @@ input:focus {
 
 .links {
     color: white;
-}
-
-.links a {
-    margin-left: 4px;
 }
 
 div.jumbotron {
@@ -171,36 +162,6 @@ div.jumbotron {
     /* Height of the footer*/
     height: 40px;
     background: rgba(162, 159, 21, 0.8);
-}
-
-.col-space {
-    text-align: center;
-    height: 30px;
-}
-
-.col-space-20 {
-    text-align: center;
-    height: 20px;
-}
-
-.col-name {
-    text-align: center;
-}
-
-.col-write {
-    text-align: left;
-}
-
-.col-comment-box {
-    text-align: left;
-}
-
-.col-answer {
-    text-align: right;
-}
-
-.p-article {
-    text-align: justify;
 }
 
 .container-bg {
@@ -237,5 +198,29 @@ div.jumbotron {
 
 .btn-guest:hover {
     background-color: rgba(162, 159, 21, 0.9);
+    color: white;
+}
+
+.logout_btn {
+    border-radius: 50px;
+}
+
+.table-straipsniai {
+    background: rgba(162, 159, 21, 0.8);
+    text-align: center;
+}
+
+.row_sarasas {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.btn-check {
+    background: rgb(76, 6, 29);
+    color: white;
+}
+
+.btn-check:hover {
+    background-color: rgb(59, 57, 35);
     color: white;
 }

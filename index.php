@@ -34,9 +34,7 @@ include("include/session.php");
                 if ($form->num_errors > 0) {
                     echo "<font size=\"3\" color=\"#ff0000\">Klaidų: " . $form->num_errors . "</font>";
                 }
-               // echo "<table class=\"center\"><tr><td>";
                 include("include/loginForm.php");
-                //echo "</td></tr></table></div><br></td></tr>";
             }
             echo "<tr><td>";
             echo "</td></tr>";

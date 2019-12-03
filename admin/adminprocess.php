@@ -28,6 +28,9 @@ class AdminProcess {
         /* Admin submitted delete banned user form */ else if (isset($_GET['db'])) {
             $this->procDeleteBannedUser();
         }
+         /* Admin submitted delete article form */ else if (isset($_POST['delarticle'])) {
+            $this->procDeleteArticle();
+        }
         /* Should not get here, redirect to home page */ else {
             header("Location: ../index.php");
         }
@@ -163,6 +166,26 @@ class AdminProcess {
             }
         }
         return $subuser;
+    }
+
+     /**
+     * procDeleteUser - If the submitted username is correct,
+     * the user is deleted from the database.
+     */
+    function procDeleteArticle() {
+        global $session, $database, $form;
+        /* Errors exist, have user correct them */
+        if ($form->num_errors > 0 && false) {
+            $_SESSION['value_array'] = $_POST;
+            $_SESSION['error_array'] = $form->getErrorArray();
+            header("Location: " . $session->referrer);
+        }
+        /* Delete user from database */ else {
+            $id = $_POST['id'];
+            $q = "DELETE FROM straipsnis WHERE id = '$id'";
+            $database->query($q);
+            header("Location: " . $session->referrer);
+        }
     }
 
 }

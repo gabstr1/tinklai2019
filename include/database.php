@@ -290,9 +290,46 @@ class MySQLDB {
     }
 
     function getStraipsniai() {
-        $q = "SELECT straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, vartotojas.vardas FROM `straipsnis` 
-        INNER JOIN vartotojas
-        ON vartotojas.id = straipsnis.autoriaus_id";
+        $q = "SELECT id, pavadinimas, tekstas, autoriaus_id  FROM `straipsnis`";
+        $result = mysqli_query($this->connection, $q);
+        /* Error occurred, return given name by default */
+        $num_rows = mysqli_num_rows($result);
+        if (!$result || ($num_rows < 1)) {
+            return NULL;
+        }
+        $data = array();
+        /* Return result array */
+        for ($i = 0; $i < $num_rows; $i++) {
+            $data[] = mysqli_fetch_array($result);
+        }
+        return $data;
+    }
+    function getStraipsnis($id) {
+        $q = "SELECT straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, a1.username AS autorius, komentaras.vartotojo_id AS komentaro_autorius, komentaras.tekstas AS komentaras, a2.username AS komentaro_autorius FROM `straipsnis` 
+        INNER JOIN users a1
+        ON a1.userid = straipsnis.autoriaus_id
+        LEFT JOIN komentaras
+        ON straipsnis.id = komentaras.straipsnio_id
+        LEFT JOIN users a2
+        ON a2.userid = komentaras.vartotojo_id
+        WHERE straipsnis.id = '$id'";   
+        $result = mysqli_query($this->connection, $q);
+        /* Error occurred, return given name by default */
+        $num_rows = mysqli_num_rows($result);
+        if (!$result || ($num_rows < 1)) {
+            return NULL;
+        }
+        $data = array();
+        /* Return result array */
+        for ($i = 0; $i < $num_rows; $i++) {
+            $data[] = mysqli_fetch_array($result);
+        }
+        return $data;
+    }
+    function getStraipsniuSarasas() {
+        $q = "SELECT id, pavadinimas, users.username AS autorius, perziuru_kiekis FROM `straipsnis`
+        INNER JOIN users
+        ON users.userid=straipsnis.autoriaus_id";
         $result = mysqli_query($this->connection, $q);
         /* Error occurred, return given name by default */
         $num_rows = mysqli_num_rows($result);

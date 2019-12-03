@@ -19,7 +19,7 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Straipnsių sąrašas</title>
+    <title>Straipnsių užklausos</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="bootstrap-checkbox.min.js" defer></script>
     <link href="include/styles.css" rel="stylesheet" type="text/css" />
@@ -32,39 +32,37 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
             global $database;
             $results = $database->getStraipsniuSarasas();
             ?>
-    <h1 class="my-5">Straipsnių sąrašas</h1>
-    <div class="row row_sarasas">
-        <div class="table-responsive table-straipsniai table-hover">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Pavadinimas</th>
-                        <th scope="col">Autorius</th>
-                        <th scope="col">Peržiūros</th>
-                        <th scope="col">Naikinti?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php  for($i=0; $i<count($results); $i++){  ?>
-                    <tr>
-                        <td><?php  echo $results[$i]['pavadinimas'] ?></td>
-                        <td><?php  echo $results[$i]['autorius'] ?></td>
-                        <td class="text-center"><?php  echo $results[$i]['perziuru_kiekis'] ?></td>
-                        <td class="text-center">
-                            <form action='./admin/adminprocess.php' method="post">
-                                <button type="submit" name="submit" class="btn">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <input type="hidden" name="id" value="<?php echo $results[$i]['id']; ?>">
-                                <input type="hidden" name="delarticle" value="1">
-                            </form>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+    <form action='delete.php' method="post">
+        <h1 class="my-5">Straipsnių užklausos</h1>
+        <div class="row row_sarasas">
+            <div class="table-responsive table-straipsniai table-hover">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Pavadinimas</th>
+                            <th scope="col">Autorius</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php  for($i=0; $i<count($results); $i++){  ?>
+                        <tr>
+                            <td><?php  echo $results[$i]['pavadinimas'] ?></td>
+                            <td><?php  echo $results[$i]['autorius'] ?></td>
+                            <td>
+                                <a class="btn btn-check" href="index.php" role="button">Patvirtinti</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-check" href="index.php" role="button">Atmesti</a>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>
