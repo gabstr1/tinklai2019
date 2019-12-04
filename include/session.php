@@ -55,7 +55,7 @@ class Session {
             $this->referrer = "/";
         }
         /* Set current url */
-        $this->url = $_SESSION['url'] = $_SERVER['PHP_SELF'];
+        $this->url = $_SESSION['url'] = $_SERVER['REQUEST_URI'];
     }
     /**
      * checkLogin - Checks if the user has already previously

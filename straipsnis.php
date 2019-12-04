@@ -9,7 +9,7 @@ if ($session->logged_in) {
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=9; text/html; charset=utf-8" />
-    <title>Operacija1</title>
+    <title>Straipsnis</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,6 +23,16 @@ if ($session->logged_in) {
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <link href="include/styles.css" rel="stylesheet" type="text/css" />
+    <script>
+        function stoppedTyping(){
+            var txt = document.getElementById("comment_text").value;
+            if(txt.length > 0) { 
+                document.getElementById('submit_comment').disabled = false; 
+            } else { 
+                document.getElementById('submit_comment').disabled = true;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -35,7 +45,6 @@ if ($session->logged_in) {
             //echo $queries['id'];
             $results = $database->getStraipsnis($queries['id']); 
         ?>
-
     <div class="container container-bg">
 
         <div class="row justify-content-center py-4 ">
@@ -55,23 +64,28 @@ if ($session->logged_in) {
         <div class="d-flex justify-content-start pb-2 mx-5">
             <h4>Parašykite komentarą:</h4>
         </div>
+        <form action="process.php?id=<?php echo $queries['id']?>" method="post">
 
-        <div class="d-flex justify-content-start mx-5">
-            <textarea class="form-control" id="exampleFormControlTextarea1"></textarea>
-        </div>
+            <div class="d-flex justify-content-start mx-5">
+                <textarea class="form-control" name="tekstas" id="comment_text" onkeyup="stoppedTyping()"></textarea>
+            </div>
 
-        <div class="d-flex justify-content-end pb-3 pt-2 mx-5">
-            <a class="btn btn-submit" href="#" role="button">Pateikti</a>
-        </div>
+            <div class="d-flex justify-content-end pb-3 pt-2 mx-5">
+                <input type="hidden" name="incomment" value="1">
+                <button disabled class="btn btn-submit" id="submit_comment">Pateikti</button>
+            </div>
+        </form>
+
         <?php
-            for($i = 0; $i < count($results); $i++)
-            {
+        for($i = 0; $i < count($results); $i++)
+        {
         ?>
+
         <div class="d-flex justify-content-start pb-2 mx-5">
-            <h6> 
+            <h6>
                 <?php
                     echo $results[$i]['komentaro_autorius'];
-                 ?> 
+                 ?>
             </h6>
         </div>
 
@@ -82,16 +96,28 @@ if ($session->logged_in) {
                 ?>
             </p>
         </div>
-        
+
 
         <div class="d-flex justify-content-end pt-1 pb-3 mx-5">
-            <a class="btn btn-answer" href="#" role="button">Atsakyti</a>
+            <button class="btn btn-submit" type="button" data-toggle="collapse" data-target="#collapse<?php echo $i ?>"
+                        aria-expanded="false" aria-controls="collapse<?php echo $i ?>">                Atsakyti
+            </button>
         </div>
+        
 
-            <?php } ?>
+        <div class="row pt-1 pb-3 mx-5">
+
+            <div class="collapse" id="collapse<?php echo $i ?>">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
     </div>
 
 </body>
 
 </html>
-            <?php } ?>
+<?php } ?>

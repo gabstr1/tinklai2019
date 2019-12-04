@@ -24,6 +24,9 @@ class Process {
         /* User submitted article form */ else if (isset($_POST['inarticle'])) {
             $this->procInsertArticle();
         }
+        /* User submitted article form */ else if (isset($_POST['incomment'])) {
+            $this->procInsertComment();
+        }
         /**
          * The only other reason user should be directed here
          * is if he wants to logout, which means user is
@@ -190,12 +193,32 @@ class Process {
             $name = $_POST['pavadinimas'];
             $text = $_POST['tekstas'];
             $userid= $_SESSION['userid'];
-            }
-            $q = "INSERT INTO straipsnis(pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('$name', '$userid', '$text', '0', '0')";
-            $database->query($q);
+        }
+        $q = "INSERT INTO straipsnis(pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('$name', '$userid', '$text', '0', '0')";
+        $database->query($q);
+        header("Location: " . $session->referrer);
+    }
+
+    function procInsertComment()
+    {        
+        global $session, $database, $form;
+        /* Errors exist, have user correct them */
+        if ($form->num_errors > 0 && false) {
+            $_SESSION['value_array'] = $_POST;
+            $_SESSION['error_array'] = $form->getErrorArray();
             header("Location: " . $session->referrer);
         }
+        else {         
+            $text = $_POST['tekstas'];
+            $userid= $_SESSION['userid'];
+            $id = $_GET['id'];
+        }
+        $q = "INSERT INTO komentaras(vartotojo_id, tekstas, straipsnio_id) 
+        VALUES ('$userid', '$text', '$id')";
+        $database->query($q);
+        header("Location: " . $session->referrer);
     }
+}  
 
 /* Initialize process */
 $process = new Process;
