@@ -191,7 +191,7 @@ class Process {
             $text = $_POST['tekstas'];
             $userid= $_SESSION['userid'];
             }
-            $q = "INSERT INTO straipsnis(id, pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('22','$name', '$userid', '$text' '1', '0')";
+            $q = "INSERT INTO straipsnis(pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('$name', '$userid', '$text', '0', '0')";
             $database->query($q);
             header("Location: " . $session->referrer);
         }
