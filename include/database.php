@@ -330,7 +330,7 @@ class MySQLDB {
         $q = "SELECT id, pavadinimas, users.username AS autorius, perziuru_kiekis FROM `straipsnis`
         INNER JOIN users
         ON users.userid=straipsnis.autoriaus_id
-        WHERE ar_tinkamas = '0'";
+        WHERE ar_tinkamas = '1'";
         $result = mysqli_query($this->connection, $q);
         /* Error occurred, return given name by default */
         $num_rows = mysqli_num_rows($result);
@@ -344,7 +344,6 @@ class MySQLDB {
         }
         return $data;
     }
-
 }
 
 /* Create database connection */

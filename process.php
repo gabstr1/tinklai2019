@@ -30,6 +30,12 @@ class Process {
         /* Redactor aprooved article  */ else if (isset($_POST['aparticle'])) {
             $this->procApproveArticle();
         }
+        /* Redactor discarded the article  */ else if (isset($_POST['disarticle'])) {
+            $this->procDiscardArticle();
+        }       
+        /* Increase views of the article  */ else if (isset($_POST['inviews'])) {
+            $this->procIncreaseViews();
+        }
         /**
          * The only other reason user should be directed here
          * is if he wants to logout, which means user is
@@ -182,7 +188,9 @@ class Process {
             header("Location: " . $session->referrer);
         }
     }
-
+     /**
+     * procInsertArticle - inserts article into database
+     */
     function procInsertArticle()
     {        
         global $session, $database, $form;
@@ -197,11 +205,13 @@ class Process {
             $text = $_POST['tekstas'];
             $userid= $_SESSION['userid'];
         }
-        $q = "INSERT INTO straipsnis(pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('$name', '$userid', '$text', '0', '0')";
+        $q = "INSERT INTO straipsnis(pavadinimas,autoriaus_id,tekstas,ar_tinkamas,perziuru_kiekis) VALUES ('$name', '$userid', '$text', '3', '0')";
         $database->query($q);
         header("Location: " . $session->referrer);
     }
-
+    /**
+     * procInsertComment - inserts comment into database after the article
+     */
     function procInsertComment()
     {        
         global $session, $database, $form;
@@ -221,7 +231,9 @@ class Process {
         $database->query($q);
         header("Location: " . $session->referrer);
     }
-
+    /**
+     * procApproveArticle - approves article to be seen by users
+     */
     function procApproveArticle()
     {        
         global $session, $database, $form;
@@ -232,11 +244,48 @@ class Process {
             header("Location: " . $session->referrer);
         }
         else {         
-            $text = $_POST['tekstas'];
-            $userid= $_SESSION['userid'];
-            $id = $_GET['id'];
+            $id = $_POST['id'];
         }
-        $q = "UPDATE straipsnis SET ar_tinkamas = 1 WHERE id = 30";
+        $q = "UPDATE straipsnis SET ar_tinkamas = '1' WHERE id = '$id'";
+        $database->query($q);
+        header("Location: " . $session->referrer);
+    }
+    /**
+     * procDiscardArticle - discards article set it nonvisile to users
+     */
+    function procDiscardArticle()
+    {        
+        global $session, $database, $form;
+        /* Errors exist, have user correct them */
+        if ($form->num_errors > 0 && false) {
+            $_SESSION['value_array'] = $_POST;
+            $_SESSION['error_array'] = $form->getErrorArray();
+            header("Location: " . $session->referrer);
+        }
+        else {         
+            $id = $_POST['id'];
+        }
+        $q = "UPDATE straipsnis SET ar_tinkamas = '0' WHERE id = '$id'";
+        $database->query($q);
+        header("Location: " . $session->referrer);
+    }
+    /**
+     * procIncreaseViews - increases the views count of article
+     */
+    function procIncreaseViews()
+    {        
+        global $session, $database, $form;
+        /* Errors exist, have user correct them */
+        if ($form->num_errors > 0 && false) {
+            $_SESSION['value_array'] = $_POST;
+            $_SESSION['error_array'] = $form->getErrorArray();
+            header("Location: " . $session->referrer);
+        }
+        else {         
+            $id = $_POST['id'];
+        }
+        $q = "UPDATE straipsnis 
+        SET perziuru_kiekis = perziuru_kiekis + 1 WHERE id = '$id'";
         $database->query($q);
         header("Location: " . $session->referrer);
     }

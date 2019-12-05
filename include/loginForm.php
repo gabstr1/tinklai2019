@@ -5,7 +5,7 @@
 <form action="process.php" method="POST"> 
     <div class="container my-5 py-5">
 	<div class="d-flex justify-content-center h-50">
-		<div class="card">
+		<div class="card card_login">
 			<div class="card-header">
 				<h3>Prisijungimas</h3>
 			</div>

@@ -169,8 +169,8 @@ class AdminProcess {
     }
 
      /**
-     * procDeleteUser - If the submitted username is correct,
-     * the user is deleted from the database.
+     * procDeleteArticle - If the submitted article id is correct,
+     * the article is deleted from the database.
      */
     function procDeleteArticle() {
         global $session, $database, $form;
@@ -180,7 +180,7 @@ class AdminProcess {
             $_SESSION['error_array'] = $form->getErrorArray();
             header("Location: " . $session->referrer);
         }
-        /* Delete user from database */ else {
+        /* Delete article from database */ else {
             $id = $_POST['id'];
             $q = "DELETE FROM straipsnis WHERE id = '$id'";
             $database->query($q);

@@ -32,37 +32,43 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
             global $database;
             $results = $database->getStraipsniuSarasas();
             ?>
-    <form action='delete.php' method="post">
-        <h1 class="my-5">Straipsnių užklausos</h1>
-        <div class="row row_sarasas">
-            <div class="table-responsive table-straipsniai table-hover">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Pavadinimas</th>
-                            <th scope="col">Autorius</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php  for($i=0; $i<count($results); $i++){  ?>
-                        <tr>
-                            <td><?php  echo $results[$i]['pavadinimas'] ?></td>
-                            <td><?php  echo $results[$i]['autorius'] ?></td>
+    <h1 class="my-5">Straipsnių užklausos</h1>
+    <div class="row row_sarasas">
+        <div class="table-responsive table-straipsniai table-hover">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Pavadinimas</th>
+                        <th scope="col">Autorius</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php  for($i=0; $i<count($results); $i++){  ?>
+                    <tr>
+                        <td><?php  echo $results[$i]['pavadinimas'] ?></td>
+                        <td><?php  echo $results[$i]['autorius'] ?></td>
+                        <form action='process.php' method="post">
                             <td>
-                                <a class="btn btn-check" href="index.php" role="button">Patvirtinti</a>
+                                <button class="btn btn-check" type="submit">Patvirtinti</button>
+                                <input type="hidden" name="id" value="<?php echo $results[$i]['id']; ?>">
+                                <input type="hidden" name="aparticle" value="1">
                             </td>
+                        </form>
+                        <form action='process.php' method="post">
                             <td>
-                                <a class="btn btn-check" href="index.php" role="button">Atmesti</a>
+                                <button class="btn btn-check" type="submit">Atmesti</button>
+                                <input type="hidden" name="id" value="<?php echo $results[$i]['id']; ?>">
+                                <input type="hidden" name="disarticle" value="1">
                             </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
+                        </form>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
-    </form>
+    </div>
 </body>
 
 </html>

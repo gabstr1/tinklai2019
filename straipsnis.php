@@ -42,7 +42,7 @@ if ($session->logged_in) {
             global $database;
             $queries = array(); 
             parse_str($_SERVER['QUERY_STRING'],$queries); 
-            $results = $database->getStraipsnis($queries['id']); 
+            $results = $database->getStraipsnis($queries['id']);           
         ?>
     <div class="container container-bg">
 
@@ -99,7 +99,7 @@ if ($session->logged_in) {
 
         <div class="d-flex justify-content-end pt-1 pb-3 mx-5">
             <button class="btn btn-submit" type="button" data-toggle="collapse" data-target="#collapse<?php echo $i ?>"
-                        aria-expanded="false" aria-controls="collapse<?php echo $i ?>">                Atsakyti
+                        aria-expanded="false" aria-controls="collapse<?php echo $i ?>">Atsakyti
             </button>
         </div>
         

@@ -1,12 +1,7 @@
 <?php
-// if ($session->logged_in) {
     //Jei vartotojas neprisijungęs, užkraunamas  puslapis tik su trumpais straipsnių aprašais 
 ?>
 <?php
-function mock(){
-    return "1234568";
-}
-
 include("include/session.php");
 ?>
 <html>
@@ -48,10 +43,16 @@ include("include/session.php");
                         <h4 class="card-title">
                             <a><?php echo $results[$i]['pavadinimas']; ?></a>
                         </h4>
-                        <p class="card-text"> <?php  echo substr($results[$i]['tekstas'],0,250); ?>... </p>
-                        <?php if($session->logged_in) { ?>
-                        <a href="straipsnis.php?id=<?php  echo $results[$i]['id'];  ?>">Skaityti toliau</a>
-                        <?php } ?>
+                        <p class="card-text"> <?php echo substr($results[$i]['tekstas'],0,250); ?>... </p>
+                        <form action="process.php" method="post">
+                            <form action="straipsnis.php?id=<?php  echo $results[$i]['id']; ?> method=" post>
+                                <?php if($session->logged_in) { ?>
+                                <a href="straipsnis.php?id=<?php  echo $results[$i]['id']; ?>">Skaityti toliau</a>
+                                <input type="hidden" name="id" value="<?php echo $results[$i]['id']; ?>">
+                                <input type="hidden" name="inviews" value="1">
+                                <?php } ?>
+                            </form>
+                        </form>
                     </div>
                 </div>
             </div>
