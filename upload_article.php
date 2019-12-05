@@ -23,44 +23,40 @@ include("include/session.php");
     <link href="include/styles.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+    <body>
 
-    <?php
-            include("include/meniu.php");
-        ?>
+        <?php
+                include("include/meniu.php");
+            ?>
 
-    <div class="container container-bg">
-        <form action='process.php' method="post">
-            <div class="row justify-content-center pt-3 pb-5 mx-5">
-                <h1>Straipsnio įkėlimas</h1>
-            </div>
-
-            <div class="row">
-                <div class="col justify-content-start pt-3 mx-5">
-                    <h5>Įrašykite pavadinimą:</h5>
+        <div class="container container-bg">
+            <form action='process.php' method="post">
+                <div class="row justify-content-center pt-3 pb-5 mx-5">
+                    <h1>Straipsnio įkėlimas</h1>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col justify-content-start pt- mx-5 align-middle">
-                    <input type="text" class="form-control" name="pavadinimas" placeholder="Straipsnio pavadinimas">
+
+                <div class="row">
+                    <div class="col justify-content-start pt-3 mx-5">
+                        <h5>Įrašykite pavadinimą:</h5>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col justify-content-start pt- mx-5 align-middle">
+                        <input type="text" class="form-control" name="pavadinimas" placeholder="Straipsnio pavadinimas">
+                    </div>
+                </div>
 
-            <div class="row justify-content-center pt-3 pb-2 mx-5">
-                <textarea class="form-control" name="tekstas" placeholder="Įkelkite straipsnio tekstą čia..."
-                    rows="30"></textarea>
+                <div class="row justify-content-center pt-3 pb-2 mx-5">
+                    <textarea class="form-control" name="tekstas" placeholder="Įkelkite straipsnio tekstą čia..."
+                        rows="30"></textarea>
 
-            </div>
+                </div>
 
-            <div class="row justify-content-end pt-3 pb-5 mx-5">
-                <button class="btn btn-submit">Pateikti</button>
-                <input type="hidden" name="inarticle" value="1">
-            </div>
-        </form>
-
-
-
-</body>
-
+                <div class="row justify-content-end pt-3 pb-5 mx-5">
+                    <button class="btn btn-submit">Pateikti</button>
+                    <input type="hidden" name="inarticle" value="1">
+                </div>
+            </form>
+    </body>
 </html>
 <?php } ?>

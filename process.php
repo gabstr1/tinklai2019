@@ -27,6 +27,9 @@ class Process {
         /* User submitted article form */ else if (isset($_POST['incomment'])) {
             $this->procInsertComment();
         }
+        /* Redactor aprooved article  */ else if (isset($_POST['aparticle'])) {
+            $this->procApproveArticle();
+        }
         /**
          * The only other reason user should be directed here
          * is if he wants to logout, which means user is
@@ -215,6 +218,25 @@ class Process {
         }
         $q = "INSERT INTO komentaras(vartotojo_id, tekstas, straipsnio_id) 
         VALUES ('$userid', '$text', '$id')";
+        $database->query($q);
+        header("Location: " . $session->referrer);
+    }
+
+    function procApproveArticle()
+    {        
+        global $session, $database, $form;
+        /* Errors exist, have user correct them */
+        if ($form->num_errors > 0 && false) {
+            $_SESSION['value_array'] = $_POST;
+            $_SESSION['error_array'] = $form->getErrorArray();
+            header("Location: " . $session->referrer);
+        }
+        else {         
+            $text = $_POST['tekstas'];
+            $userid= $_SESSION['userid'];
+            $id = $_GET['id'];
+        }
+        $q = "UPDATE straipsnis SET ar_tinkamas = 1 WHERE id = 30";
         $database->query($q);
         header("Location: " . $session->referrer);
     }

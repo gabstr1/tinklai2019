@@ -71,7 +71,8 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
 <?php
     //Jei vartotojas neprisijungęs arba prisijunges, bet ne Administratorius 
     //ar ne Valdytojas - užkraunamas pradinis puslapis   
-} else {
+} 
+else {
     header("Location: index.php");
 }
 ?>

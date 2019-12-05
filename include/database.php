@@ -290,7 +290,7 @@ class MySQLDB {
     }
 
     function getStraipsniai() {
-        $q = "SELECT id, pavadinimas, tekstas, autoriaus_id  FROM `straipsnis`";
+        $q = "SELECT id, pavadinimas, tekstas, autoriaus_id  FROM `straipsnis` WHERE ar_tinkamas = '1'";
         $result = mysqli_query($this->connection, $q);
         /* Error occurred, return given name by default */
         $num_rows = mysqli_num_rows($result);
@@ -329,7 +329,8 @@ class MySQLDB {
     function getStraipsniuSarasas() {
         $q = "SELECT id, pavadinimas, users.username AS autorius, perziuru_kiekis FROM `straipsnis`
         INNER JOIN users
-        ON users.userid=straipsnis.autoriaus_id";
+        ON users.userid=straipsnis.autoriaus_id
+        WHERE ar_tinkamas = '0'";
         $result = mysqli_query($this->connection, $q);
         /* Error occurred, return given name by default */
         $num_rows = mysqli_num_rows($result);

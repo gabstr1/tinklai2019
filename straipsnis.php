@@ -42,7 +42,6 @@ if ($session->logged_in) {
             global $database;
             $queries = array(); 
             parse_str($_SERVER['QUERY_STRING'],$queries); 
-            //echo $queries['id'];
             $results = $database->getStraipsnis($queries['id']); 
         ?>
     <div class="container container-bg">
