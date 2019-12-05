@@ -21,6 +21,17 @@ include("include/session.php");
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <link href="include/styles.css" rel="stylesheet" type="text/css" />
+    <script>
+        function stoppedTyping() {
+            var txt = document.getElementById("insert_article").value;
+            if (txt.length > 0) {
+                document.getElementById('submit_article').disabled = false;
+            } 
+            else {
+                document.getElementById('submit_article').disabled = true;
+            }
+    }
+    </script>
 </head>
 
     <body>
@@ -47,14 +58,32 @@ include("include/session.php");
                 </div>
 
                 <div class="row justify-content-center pt-3 pb-2 mx-5">
-                    <textarea class="form-control" name="tekstas" placeholder="Įkelkite straipsnio tekstą čia..."
+                    <textarea class="form-control" name="tekstas" id="insert_article" onkeyup="stoppedTyping()" placeholder="Įkelkite straipsnio tekstą čia..."
                         rows="30"></textarea>
 
                 </div>
 
                 <div class="row justify-content-end pt-3 pb-5 mx-5">
-                    <button class="btn btn-submit">Pateikti</button>
+                    <button id="submit_article" class="btn btn-submit" type="button" data-toggle="modal" data-target="#exampleModal">Pateikti</button>
                     <input type="hidden" name="inarticle" value="1">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Sėkmingai pateikėte straipsnį redakcijai</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Redaktorius peržiūrės jūsų straipsnį ir nuspręs, ar jis tinkamas publikuoti ir jūs gausite atitinkamą pranešimą</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Gerai</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                 </div>
             </form>
     </body>

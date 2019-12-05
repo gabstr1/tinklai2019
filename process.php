@@ -282,7 +282,7 @@ class Process {
             header("Location: " . $session->referrer);
         }
         else {         
-            $id = $_POST['id'];
+            $id = $_GET['id'];
         }
         $q = "UPDATE straipsnis 
         SET perziuru_kiekis = perziuru_kiekis + 1 WHERE id = '$id'";

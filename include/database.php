@@ -305,7 +305,9 @@ class MySQLDB {
         return $data;
     }
     function getStraipsnis($id) {
-        $q = "SELECT straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, a1.username AS autorius, komentaras.vartotojo_id AS komentaro_autorius, komentaras.tekstas AS komentaras, a2.username AS komentaro_autorius FROM `straipsnis` 
+        $q = "SELECT straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, a1.username 
+        AS autorius, komentaras.vartotojo_id AS komentaro_autorius, komentaras.tekstas 
+        AS komentaras, a2.username AS komentaro_autorius, komentaras.id AS komentaro_id FROM `straipsnis` 
         INNER JOIN users a1
         ON a1.userid = straipsnis.autoriaus_id
         LEFT JOIN komentaras

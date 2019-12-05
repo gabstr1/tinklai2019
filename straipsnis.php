@@ -32,6 +32,7 @@ if ($session->logged_in) {
             document.getElementById('submit_comment').disabled = true;
         }
     }
+
     function stoppedTypingAnswer() {
         var txt = document.getElementById("answer_text").value;
         if (txt.length > 0) {
@@ -104,19 +105,22 @@ if ($session->logged_in) {
             </p>
         </div>
 
-        <div class="row justify-content-end pt-1 pb-2 mx-5">
-        <?php if ($session->isAdmin()) { ?>
+        <div class="row justify-content-end pt-1 mx-5">
+            <?php if ($session->isAdmin()) { ?>
             <button class="btn btn-submit">Pašalinti</button> &nbsp;&nbsp;
-        <?php } ?>
+            <?php } ?>
             <button class="btn btn-submit" type="button" data-toggle="collapse" data-target="#collapse<?php echo $i ?>"
                 aria-expanded="false" aria-controls="collapse<?php echo $i ?>">Atsakyti
             </button>
         </div>
 
-        <div class="collapse pb-5 pt-3 mx-5" id="collapse<?php echo $i ?>">
+
+
+        <div class="collapse pl-5 ml-5 pb-3 pt-3 mx-5" id="collapse<?php echo $i ?>">
             <div class="card card_comment">
                 <div class="card-body">
-                    <h6 class="card-title">Atsakykite į komentarą, kurį parašė <?php echo $results[$i]['autorius']; ?></h6>
+                    <h6 class="card-title">Atsakykite į komentarą, kurį parašė <?php echo $results[$i]['autorius']; ?>
+                    </h6>
                     <p>
                         <textarea class="form-control" id="answer_text" onkeyup="stoppedTypingAnswer()"></textarea>
                     </p>
@@ -124,8 +128,17 @@ if ($session->logged_in) {
                 </div>
             </div>
         </div>
-
-        <?php } ?>
+        <div class="row pt-3 pl-5 ml-5 mr-5 pb-5">
+            <?php  
+                $answer = $database->getKomentaroAts($results[$i]['komentaro_id']); 
+                for($x = 0; $x < count($answer); $x++) {
+            ?>
+            <h6><?php echo $answer[$x]['atsakymo_autorius']; ?></h6>
+            <p>
+                <?php echo $answer[$x]['atsakymas']; ?>
+            </p>
+        </div>
+        <?php } } ?>
     </div>
 </body>
 

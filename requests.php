@@ -33,7 +33,7 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
             $results = $database->getStraipsniuSarasas();
             ?>
     <h1 class="my-5">Straipsnių užklausos</h1>
-    <div class="row row_sarasas">
+    <div class="row row_sarasas my-5">
         <div class="table-responsive table-straipsniai table-hover">
             <table class="table">
                 <thead>
@@ -42,12 +42,17 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
                         <th scope="col">Autorius</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php  for($i=0; $i<count($results); $i++){  ?>
                     <tr>
-                        <td><?php  echo $results[$i]['pavadinimas'] ?></td>
+                        <td>
+                            <a href="straipsnis.php?id=<?php  echo $results[$i]['id'];  ?>">
+                                <?php  echo $results[$i]['pavadinimas'] ?>
+                            </a>
+                        </td>
                         <td><?php  echo $results[$i]['autorius'] ?></td>
                         <form action='process.php' method="post">
                             <td>
@@ -62,6 +67,9 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
                                 <input type="hidden" name="id" value="<?php echo $results[$i]['id']; ?>">
                                 <input type="hidden" name="disarticle" value="1">
                             </td>
+                            <td>
+                                <button class="btn btn-check" type="submit">Prašyti pataisymų</button>                           
+                            </td>
                         </form>
                     </tr>
                     <?php } ?>
@@ -72,10 +80,4 @@ if ($session->logged_in && ($session->isAdmin() || $session->isManager())) {
 </body>
 
 </html>
-<?php
-    //Jei vartotojas neprisijungęs arba prisijunges, bet ne Administratorius 
-    //ar ne Valdytojas - užkraunamas pradinis puslapis   
-} else {
-    header("Location: index.php");
-}
-?>
+<?php   } ?>
