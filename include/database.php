@@ -344,6 +344,24 @@ class MySQLDB {
         }
         return $data;
     }
+    function getKomentaroAts($id) {
+        $q = "SELECT users.username AS atsakymo_autorius, komentaru_ats.tekstas AS atsakymas FROM komentaru_ats 
+        INNER JOIN users
+        ON users.userid=komentaru_ats.autoriaus_id
+        WHERE komentaro_id = '$id'";
+        $result = mysqli_query($this->connection, $q);
+        /* Error occurred, return given name by default */
+        $num_rows = mysqli_num_rows($result);
+        if (!$result || ($num_rows < 1)) {
+            return NULL;
+        }
+        $data = array();
+        /* Return result array */
+        for ($i = 0; $i < $num_rows; $i++) {
+            $data[] = mysqli_fetch_array($result);
+        }
+        return $data;
+    }
 }
 
 /* Create database connection */

@@ -24,14 +24,22 @@ if ($session->logged_in) {
     </script>
     <link href="include/styles.css" rel="stylesheet" type="text/css" />
     <script>
-        function stoppedTyping(){
-            var txt = document.getElementById("comment_text").value;
-            if(txt.length > 0) { 
-                document.getElementById('submit_comment').disabled = false; 
-            } else { 
-                document.getElementById('submit_comment').disabled = true;
-            }
+    function stoppedTyping() {
+        var txt = document.getElementById("comment_text").value;
+        if (txt.length > 0) {
+            document.getElementById('submit_comment').disabled = false;
+        } else {
+            document.getElementById('submit_comment').disabled = true;
         }
+    }
+    function stoppedTypingAnswer() {
+        var txt = document.getElementById("answer_text").value;
+        if (txt.length > 0) {
+            document.getElementById('submit_answer').disabled = false;
+        } else {
+            document.getElementById('submit_answer').disabled = true;
+        }
+    }
     </script>
 </head>
 
@@ -54,22 +62,22 @@ if ($session->logged_in) {
             <h6 class="text-center pb-5 ">Autorius: <?php echo $results[0]['autorius'] ?></h6>
         </div>
 
-        <div class="d-flex justify-content-center pb-4 mx-5">
+        <div class="row justify-content-center pb-4 mx-5">
             <p class="text-justify">
                 <?php echo $results[0]['tekstas'] ?>
             </p>
         </div>
 
-        <div class="d-flex justify-content-start pb-2 mx-5">
+        <div class="row justify-content-start pb-2 mx-5">
             <h4>Parašykite komentarą:</h4>
         </div>
         <form action="process.php?id=<?php echo $queries['id']?>" method="post">
 
-            <div class="d-flex justify-content-start mx-5">
+            <div class="row justify-content-start mx-5">
                 <textarea class="form-control" name="tekstas" id="comment_text" onkeyup="stoppedTyping()"></textarea>
             </div>
 
-            <div class="d-flex justify-content-end pb-3 pt-2 mx-5">
+            <div class="row justify-content-end pb-3 pt-2 mx-5">
                 <input type="hidden" name="incomment" value="1">
                 <button disabled class="btn btn-submit" id="submit_comment">Pateikti</button>
             </div>
@@ -80,7 +88,7 @@ if ($session->logged_in) {
         {
         ?>
 
-        <div class="d-flex justify-content-start pb-2 mx-5">
+        <div class="row justify-content-start pb-2 mx-5">
             <h6>
                 <?php
                     echo $results[$i]['komentaro_autorius'];
@@ -88,7 +96,7 @@ if ($session->logged_in) {
             </h6>
         </div>
 
-        <div class="d-flex justify-content-start mx-5">
+        <div class="row justify-content-start mx-5">
             <p class="text-justify">
                 <?php
                     echo $results[$i]['komentaras'];
@@ -96,26 +104,29 @@ if ($session->logged_in) {
             </p>
         </div>
 
-
-        <div class="d-flex justify-content-end pt-1 pb-3 mx-5">
+        <div class="row justify-content-end pt-1 pb-2 mx-5">
+        <?php if ($session->isAdmin()) { ?>
+            <button class="btn btn-submit">Pašalinti</button> &nbsp;&nbsp;
+        <?php } ?>
             <button class="btn btn-submit" type="button" data-toggle="collapse" data-target="#collapse<?php echo $i ?>"
-                        aria-expanded="false" aria-controls="collapse<?php echo $i ?>">Atsakyti
+                aria-expanded="false" aria-controls="collapse<?php echo $i ?>">Atsakyti
             </button>
         </div>
-        
 
-        <div class="row pt-1 pb-3 mx-5">
-
-            <div class="collapse" id="collapse<?php echo $i ?>">
-                <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        <div class="collapse pb-5 pt-3 mx-5" id="collapse<?php echo $i ?>">
+            <div class="card card_comment">
+                <div class="card-body">
+                    <h6 class="card-title">Atsakykite į komentarą, kurį parašė <?php echo $results[$i]['autorius']; ?></h6>
+                    <p>
+                        <textarea class="form-control" id="answer_text" onkeyup="stoppedTypingAnswer()"></textarea>
+                    </p>
+                    <button disabled class="btn btn-submit" id="submit_answer">Pateikti atsakymą</button>
                 </div>
             </div>
         </div>
+
         <?php } ?>
-
     </div>
-
 </body>
 
 </html>

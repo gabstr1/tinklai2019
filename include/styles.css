@@ -171,7 +171,6 @@ div.jumbotron {
 
 .btn-submit {
     background: rgb(76, 6, 29);
-    border-radius: 50px;
     color: white;
 }
 
@@ -182,7 +181,6 @@ div.jumbotron {
 
 .btn-answer {
     background: rgb(59, 57, 35);
-    border-radius: 50px;
     color: white;
 }
 
@@ -199,10 +197,6 @@ div.jumbotron {
 .btn-guest:hover {
     background-color: rgba(162, 159, 21, 0.9);
     color: white;
-}
-
-.logout_btn {
-    border-radius: 50px;
 }
 
 .table-straipsniai {
@@ -223,4 +217,8 @@ div.jumbotron {
 .btn-check:hover {
     background-color: rgb(59, 57, 35);
     color: white;
+}
+
+.card_comment {
+    background: rgba(0, 0, 0, 0);
 }
