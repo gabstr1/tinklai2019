@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 Vartotojai: Redaktorius, Valdytojas, Vartotojas
 Visų slaptažodžiai tie patys: demo
+=======
+Vartotojai: Administratorius, Valdytojas, Vartotojas
+Visu slaptazodziai tie patys: demo
+>>>>>>> 235b74bbe23d12ead38ab5f0ac8606906019b794

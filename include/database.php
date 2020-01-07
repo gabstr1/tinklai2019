@@ -305,7 +305,7 @@ class MySQLDB {
         return $data;
     }
     function getStraipsnis($id) {
-        $q = "SELECT straipsnis.ar_tinkamas, straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, a1.username 
+        $q = "SELECT straipsnis.ar_tinkamas, straipsnis.id, straipsnis.pavadinimas, straipsnis.tekstas, a1.username
         AS autorius, komentaras.vartotojo_id AS komentaro_autorius, komentaras.tekstas 
         AS komentaras, a2.username AS komentaro_autorius, komentaras.id AS komentaro_id,
         a3.username AS atsakymo_autorius, komentaru_ats.tekstas AS atsakymo_tekstas, komentaru_ats.id AS atsakymo_komentaro_id
